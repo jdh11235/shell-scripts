@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# requires: ffmpeg gifsicle
+
+# usage: vid2gif <input video> <output gif> <frames>
+# vid2gif kitten.mov kitten.gif 10
+
+rm -rf /tmp/vid2gif.output
+mkdir /tmp/vid2gif.output
+
+ffmpeg -i $1 -r $3 /tmp/vid2gif.output/out%04d.gif
+gifsicle -d $3 --loop /tmp/vid2gif.output/*.gif > $2
+
+echo $(du -sh $2)
